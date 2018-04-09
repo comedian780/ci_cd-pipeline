@@ -42,7 +42,7 @@ angular.
     $rootScope.parcelsize = this.parcel;
 
     this.calcSize=function($parcel){
-      pak_cat = "";
+      /*pak_cat = "";
       gurtmass = +$parcel.size.length + 2 * $parcel.size.height + 2 * $parcel.size.depth;
 
       if(gurtmass >= 80 && gurtmass <= 300){
@@ -57,9 +57,23 @@ angular.
         pak_cat = "XS";
       }else{
         pak_cat = "";
-      }
+      }*/
 
-      $parcel.category = pak_cat;
+      var parameter = JSON.stringify(this.parcel.size);
+      var url = "http://localhost:8443/parcel/size";
+      $http.post(url, parameter).
+      success(function(data, status, headers, config) {
+          // this callback will be called asynchronously
+          // when the response is available
+          $rootScope.parcelsize=data['size'];
+        }).
+        error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+          console.log(status);
+          console.log(data);
+          console.log(headers);
+        });
     }
 
   }
