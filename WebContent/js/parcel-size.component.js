@@ -35,8 +35,8 @@ angular.
   controller: function ParcelSiceController($rootScope, $http) {
 
     this.parcel = {
-      size: {length: '0', height: '0', depth: '0'},
-      category: 'S'
+      size: {length: '0', height: '0', depth: '0', category: 'S'}
+
     };
 
     $rootScope.parcelsize = this.parcel;
