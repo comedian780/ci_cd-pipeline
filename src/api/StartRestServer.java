@@ -9,7 +9,7 @@ public class StartRestServer {
 
 
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
-		HttpServer server = HttpServerFactory.create( "http://localhost:8443/parcel" );
+		HttpServer server = HttpServerFactory.create( "http://localhost:8080/parcel" );
 		server.start();
 		/*JOptionPane.showMessageDialog( null, "Ende" );
 		try {
