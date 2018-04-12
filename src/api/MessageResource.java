@@ -16,14 +16,21 @@ import com.google.gson.Gson;
 public class MessageResource
 {
   @GET 
-  public String message()
+  public Response message()
   {
 	Package parcel = new Package();
 	parcel.height = 1;
 	parcel.length = 2;
 	parcel.width = 3;
 	parcel.size = "S";
-    return parcel.toString();
+	Gson gs = new Gson();
+    //return parcel.toString();
+	return Response.ok(gs.toJson(parcel, Package.class)).header("Access-Control-Allow-Origin", "*")
+		      .header("Access-Control-Allow-Credentials", "true")
+		      .header("Access-Control-Allow-Headers",
+		         "origin, content-type, accept, authorization")
+		       .header("Access-Control-Allow-Methods",
+		         "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
   }
   
   @POST
