@@ -60,7 +60,7 @@ angular.
       }*/
 
       var parameter = JSON.stringify(this.parcel.size);
-      var url = "http://localhost:8080/parcel/size";
+      var url = "http://localhost:8443/parcel/size";
       $http.post(url, parameter).
       success(function(data, status, headers, config) {
           // this callback will be called asynchronously
