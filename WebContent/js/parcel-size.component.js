@@ -19,14 +19,14 @@ angular.
     '</br>'+
     '<div class="w3-cell">'+
     '<label>Tiefe</label>'+
-    '<input class="w3-input" id="cfg-size-depth" type="text" ng-model="$ctrl.parcel.size.depth">'+
+    '<input class="w3-input" id="cfg-size-depth" type="text" ng-model="$ctrl.parcel.size.width">'+
     '</div>'+
     '</br>'+
     '<div class="w3-button w3-teal" ng-click="$ctrl.calcSize($ctrl.parcel)" style="cursor: pointer;">'+
       '<h3 class="w3-opacity" >Paketgröße berechnen</h3>'+
     '</div>'+
     '<div class="w3-cell" >'+
-      '<label id="cfg-category">Paketgröße: {{$ctrl.parcel.category}}</label>'+
+      '<label id="cfg-category">Paketgröße: {{$ctrl.parcel.size.category}}</label>'+
     '</div>'+
     '</form>'+
     '</div>',
@@ -35,7 +35,7 @@ angular.
   controller: function ParcelSiceController($rootScope, $http) {
 
     this.parcel = {
-      size: {length: '0', height: '0', depth: '0', category: 'S'}
+      size: {length: '0', height: '0', width: '0', category: 'S'}
 
     };
 
@@ -59,14 +59,14 @@ angular.
         pak_cat = "";
       }*/
 
-      var parameter = JSON.stringify(this.parcel.size);
+      var parameter = JSON.stringify($parcel.size);
       var url = "http://localhost/api/parcel/size";
-      $http.post(url, parameter).
-      then(function(data, status, headers, config) {
+      var size = '';
+      $http.post(url, parameter).then(function(data, status, headers, config) {
           // this callback will be called asynchronously
           // when the response is available
-          ret_data = JSON.parse(data);
-          $rootScope.parcelsize=ret_data['size'];
+          ret_data = angular.fromJson(data);
+          $parcel.size.category=ret_data['data']['size'];
         });/*.
         error(function(data, status, headers, config) {
           // called asynchronously if an error occurs
@@ -75,6 +75,7 @@ angular.
           console.log(data);
           console.log(headers);
         });*/
+      //  $parcel.size.category=size;
     }
 
   }
