@@ -2,6 +2,7 @@ package api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -48,5 +49,14 @@ public class MessageResource
          "origin, content-type, accept, authorization")
        .header("Access-Control-Allow-Methods",
          "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
+  }
+  
+  @OPTIONS
+  @Path("/getsample")
+  public Response getOptions() {
+    return Response.ok()
+      .header("Access-Control-Allow-Origin", "*")
+      .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+      .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
   }
 }
