@@ -38,7 +38,19 @@ public class MessageResource
   public Response size(String json) {
 	  Gson gs = new Gson();
 	  Package parcel = gs.fromJson(json, Package.class);
-	  double gurt = parcel.length + 2 * parcel.height + 2 * parcel.width;
+	  int fakt_len = 2;
+	  int fakt_hei = 2;
+	  int fakt_wid = 2;
+	  
+	  if(parcel.length > parcel.height && parcel.length > parcel.width) {
+		  fakt_len = 1; 
+	  }else if(parcel.height > parcel.length && parcel.height > parcel.width){
+		  fakt_hei = 1;
+	  }else {
+		  fakt_wid = 1;
+	  }
+	  
+	  double gurt = fakt_len * parcel.length + fakt_hei * parcel.height + fakt_wid * parcel.width;
 	  MysqlCon con = new MysqlCon();
 	  parcel.size = con.getSize(gurt);
 	  
