@@ -52,7 +52,6 @@ public class MessageResource
   }
   
   @OPTIONS
-  @Path("/getsample")
   public Response getOptions() {
     return Response.ok()
       .header("Access-Control-Allow-Origin", "*")

@@ -14,12 +14,12 @@ angular.
     '</br>'+
     '<div class="w3-cell">'+
     '<label>Breite</label>'+
-    '<input class="w3-input" id="cfg-size-height" type="text" ng-model="$ctrl.parcel.size.height">'+
+    '<input class="w3-input" id="cfg-size-height" type="text" ng-model="$ctrl.parcel.size.width">'+
     '</div>'+
     '</br>'+
     '<div class="w3-cell">'+
     '<label>Tiefe</label>'+
-    '<input class="w3-input" id="cfg-size-depth" type="text" ng-model="$ctrl.parcel.size.width">'+
+    '<input class="w3-input" id="cfg-size-depth" type="text" ng-model="$ctrl.parcel.size.height">'+
     '</div>'+
     '</br>'+
     '<div class="w3-button w3-teal" ng-click="$ctrl.calcSize($ctrl.parcel)" style="cursor: pointer;">'+
@@ -61,21 +61,12 @@ angular.
 
       var parameter = JSON.stringify($parcel.size);
       var url = "http://localhost/api/parcel/size";
-      var size = '';
       $http.post(url, parameter).then(function(data, status, headers, config) {
           // this callback will be called asynchronously
           // when the response is available
           ret_data = angular.fromJson(data);
           $parcel.size.category=ret_data['data']['size'];
-        });/*.
-        error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-          console.log(status);
-          console.log(data);
-          console.log(headers);
-        });*/
-      //  $parcel.size.category=size;
+        });
     }
 
   }
