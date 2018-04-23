@@ -23,8 +23,7 @@ angular.
     '</div>'+
     '</br>'+
     '<div class="w3-button w3-teal" ng-click="$ctrl.calcSize($ctrl.parcel)" style="cursor: pointer;">'+
-      '<h3 class="w3-opacity" >Paketgröße berechnen</h3>'+
-    '</div>'+
+      'Paketgröße berechnen</div>'+
     '<div class="w3-cell" >'+
       '<label id="cfg-category">Paketgröße: {{$ctrl.parcel.size.category}}</label>'+
     '</div>'+
