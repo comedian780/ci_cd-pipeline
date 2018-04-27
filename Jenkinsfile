@@ -1,21 +1,23 @@
 pipeline {
 
-environment {
 
-
-
-}
 
 agent any
 
 stages {
+
+stage('Preparation'){
+
+git 'https://github.com/comedian780/ci_cd-pipeline.git'
+
+}
 
 stage('Build') {
 
 steps {
 
 
-sh gradle clean build
+gradle clean build
 
 }
 
