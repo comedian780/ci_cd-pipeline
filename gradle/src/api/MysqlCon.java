@@ -12,7 +12,7 @@ public class MysqlCon {
  
     public String getSize(double gurt){  
 	    try{  
-		    Class.forName("com.mysql.jdbc.Driver");  
+		    Class.forName("com.mysql.cj.jdbc.Driver");  
 		    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/parcel","parcel","parcelpassword");   
 		    Statement stmt=con.createStatement();  
 		    ResultSet rs=stmt.executeQuery("select distinct size from sizes where min <= " + gurt + " and max >= " + gurt);  

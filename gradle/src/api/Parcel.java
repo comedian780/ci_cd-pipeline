@@ -1,6 +1,6 @@
 package api;
 
-public class Package {
+public class Parcel {
 	public double length;
 	public double width;
 	public double height;

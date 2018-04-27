@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['gradle/src/api']
+        }
+        resources {
+            srcDirs = ['gradle/src/api']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['gradle/src/test']
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "api.StartRestServer"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+}
+
+dependencies{
+compile 'com.sun.jersey:jersey-bundle:1.19.4'
+// https://mvnrepository.com/artifact/asm/asm
+compile group: 'asm', name: 'asm', version: '3.1'
+// https://mvnrepository.com/artifact/javax.ws.rs/jsr311-api
+compile group: 'javax.ws.rs', name: 'jsr311-api', version: '1.1.1'
+compile 'com.google.code.gson:gson:2.8.2'
+compile 'mysql:mysql-connector-java:8.0.11'
+testCompileOnly(
+            'junit:junit:4.12'
+    )
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    )
+    testRuntimeOnly(
+            'org.junit.jupiter:junit-jupiter-engine:5.1.0',
+            'org.junit.vintage:junit-vintage-engine:5.1.0'
+    )
+}
