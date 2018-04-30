@@ -6,8 +6,12 @@ node {
    }
      stage('Build') { // for display purposes
       // run gradle build
-      sh 'gradle clean build'
-      
+
+      if (isUnix()) {
+        sh 'gradle clean build'
+    } else {
+        bat 'gradlew.bat clean build'
+    }
 
    }
 
