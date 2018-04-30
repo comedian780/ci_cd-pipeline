@@ -7,7 +7,7 @@ node {
      stage('Build') { // for display purposes
       // run gradle build
       sh 'gradle clean build'
-      //def buildInfo = rtGradle.run rootDir: "ci_cd-pipeline/", buildFile: 'build.gradle', tasks: 'clean build'
+      
 
    }
 
