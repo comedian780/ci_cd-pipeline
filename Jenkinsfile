@@ -17,7 +17,7 @@ stage('Build') {
 steps {
 
 
-gradle clean build
+def buildInfo = rtGradle.run rootDir: "ci_cd-pipeline/", buildFile: 'build.gradle', tasks: 'clean build'
 
 }
 
@@ -26,12 +26,6 @@ gradle clean build
 }
 
 post {
-
-always {
-
-cleanWs()
-
-}
 
 }
 
