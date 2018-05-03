@@ -1,4 +1,3 @@
-#FROM alpine:latest
 FROM openjdk:alpine
 
 MAINTAINER AaronLuellwitz <aaron.luellwitz@gmx.de>
