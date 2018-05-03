@@ -18,14 +18,23 @@ node {
 
       if (isUnix()) {
           //build docker image
+          sh 'docker rmi parcel-api'
           sh 'docker build -t parcel-api .'
+
           // start docker container
-          // sh 'docker run -d --restart always --network host --name=parcel-webserver parcel-api ./start.sh'
+          //sh 'docker stop parcel-webservice'
+          //sh 'docker rm parcel-webservice'
+          // sh 'docker run -d --restart always --network host --name=parcel-webservice parcel-api ./start.sh'
       } else {
           //build docker image
+
+          bat 'docker rmi parcel-api:latest'
           bat 'docker build -t parcel-api .'
+          
           // start docker container
-          // bat 'docker run -d --restart always --network host --name=parcel-webserver parcel-api ./start.sh'
+          //bat 'docker stop parcel-webservice'
+          //bat 'docker rm parcel-webservice'
+          // bat 'docker run -d --restart always --network host --name=parcel-webservice parcel-api ./start.sh'
       }
 
    }
