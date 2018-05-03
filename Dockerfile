@@ -10,8 +10,4 @@ WORKDIR APP
 
 ENV LANG C.UTF-8
 
-
-
-# RUN java -jar ./build/libs/ci_cd-pipeline.jar
- RUN ls -al
-# RUN ./start.sh
+RUN ls -al ./build/libs/
