@@ -18,7 +18,13 @@ node {
 
       if (isUnix()) {
           //build docker image
-          sh 'docker rmi parcel-api'
+          IMAGE_EXISTS = sh(
+          script: "docker images -q parcel-api:latest",
+          returnStatus : true) !=""
+          //Remove the previous build image
+          if(IMAGE_EXISTS){
+            sh 'docker rmi parcel-api'
+          }
           sh 'docker build -t parcel-api .'
 
           // start docker container
@@ -30,7 +36,7 @@ node {
 
           bat 'docker rmi parcel-api:latest'
           bat 'docker build -t parcel-api .'
-          
+
           // start docker container
           //bat 'docker stop parcel-webservice'
           //bat 'docker rm parcel-webservice'
