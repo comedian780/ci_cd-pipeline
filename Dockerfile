@@ -1,12 +1,20 @@
-FROM openjdk:alpine
+# Buildstage
+FROM gradle:jdk-alpine AS BUILD_IMAGE
 
 MAINTAINER AaronLuellwitz <aaron.luellwitz@gmx.de>
 
-RUN mkdir APP
+ADD --chown=gradle . /APP
+WORKDIR /APP
 
-COPY . APP/.
-WORKDIR APP
+RUN gradle clean build
 
-ENV LANG C.UTF-8
+# Stage for production use
+FROM openjdk:jre-alpine
 
-RUN ls -al ./build/libs/
+RUN mkdir /APP
+WORKDIR /APP
+
+COPY --from=BUILD_IMAGE /APP/build/libs/. /APP
+COPY --from=BUILD_IMAGE /APP/start.sh /APP
+
+RUN ls -al ./

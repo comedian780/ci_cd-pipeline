@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -jar ./build/libs/ci_cd-pipeline.jar
+java -jar ./ci_cd-pipeline.jar

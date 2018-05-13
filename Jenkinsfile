@@ -7,14 +7,11 @@ node {
      stage('Build') { // for display purposes
       // run gradle build
 
-      if (isUnix()) {
+      /*if (isUnix()) {
           sh 'gradle clean build'
       } else {
           bat 'gradlew.bat clean build'
-      }
-
-   }
-   stage('Dockerize'){// for display purposes
+      }*/
 
       if (isUnix()) {
           //build docker image
