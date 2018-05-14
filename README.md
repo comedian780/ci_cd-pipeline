@@ -3,10 +3,10 @@ Repository für lustigen kleinen Microservice als Ausgangspunkt einer CI/CD-Pipe
 
 Buildbefehl:
 ```
-docker build -t parcel-api:1.0 .
+docker build -t parcel-api .
 ```
 
 Startbefehl:
 ```
-docker run -d --restart always --network=parcelnetwork --name=parcel-webservice parcel-api ./start.sh
+docker run -d --restart always --network=parcelnetwork --name=parcel-webservice -p 8443:8443 parcel-api ./start.sh
 ```
