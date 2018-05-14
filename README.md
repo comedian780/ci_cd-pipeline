@@ -8,5 +8,5 @@ docker build -t parcel-api:1.0 .
 
 Startbefehl:
 ```
-docker run -d --restart always --network host --name=parcel-webservice parcel-api ./start.sh
+docker run -d --restart always --network=parcelnetwork --name=parcel-webservice parcel-api ./start.sh
 ```
