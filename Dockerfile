@@ -17,6 +17,4 @@ WORKDIR /APP
 COPY --from=BUILD_IMAGE /APP/build/libs/. /APP
 COPY --from=BUILD_IMAGE /APP/start.sh /APP
 
-RUN ls -al ./
-
 CMD ./start.sh
