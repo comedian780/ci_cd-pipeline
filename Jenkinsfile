@@ -5,7 +5,7 @@ node {
 
    }
      stage('Build') { // for display purposes
-      // run gradle build
+      // run gradle build -> happens while docker builds
 
       /*if (isUnix()) {
           sh 'gradle clean build'
@@ -16,30 +16,41 @@ node {
       if (isUnix()) {
           //build docker image
           IMAGE_EXISTS = sh(
-          script: "docker images -q parcel-api:latest",
+          script: "docker images -q 193.174.205.28:443/parcel-api:latest",
           returnStatus : true) !=""
           //Remove the previous build image
           if(IMAGE_EXISTS){
-            sh 'docker rmi parcel-api'
+            sh 'docker rmi 193.174.205.28:443/parcel-api'
           }
-          sh 'docker build -t parcel-api .'
+          sh 'docker build -t 193.174.205.28:443/parcel-api .'
 
           // start docker container
           //sh 'docker stop parcel-webservice'
           //sh 'docker rm parcel-webservice'
-          // sh 'docker run -d --restart always --network host --name=parcel-webservice parcel-api ./start.sh'
+          // sh 'docker run -d --restart always --network host --name=parcel-webservice 193.174.205.28:443/parcel-api ./start.sh'
       } else {
           //build docker image
 
-          bat 'docker rmi parcel-api:latest'
-          bat 'docker build -t parcel-api .'
+          bat 'docker rmi 193.174.205.28:443/parcel-api:latest'
+          bat 'docker build -t 193.174.205.28:443/parcel-api .'
 
           // start docker container
           //bat 'docker stop parcel-webservice'
           //bat 'docker rm parcel-webservice'
-          // bat 'docker run -d --restart always --network host --name=parcel-webservice parcel-api ./start.sh'
+          // bat 'docker run -d --restart always --network host --name=parcel-webservice 193.174.205.28:443/parcel-api ./start.sh'
       }
 
    }
+   stage('Deploy to registry'){
+    if (isUnix()){
+      sh 'docker push 193.174.205.28:443/parcel-api'
+    }else{
+      bat 'docker push 193.174.205.28:443/parcel-api'
+    }
+   }
+   //stage('Deploy to production'){
+      // start production VM
+
+   //}
 
 }
