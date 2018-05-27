@@ -15,7 +15,7 @@ node {
 
       if (isUnix()) {
           //build docker image
-          IMAGE_EXISTS = sh(-n "$(docker images -q 193.174.205.28:443/parcel-api 2> /dev/null)")
+          IMAGE_EXISTS = sh(-n "${docker images -q 193.174.205.28:443/parcel-api 2> /dev/null}")
           //Remove the previous build image
           if(IMAGE_EXISTS){
             sh 'docker rmi 193.174.205.28:443/parcel-api'
@@ -48,8 +48,8 @@ node {
    }
    //stage('Deploy to test server'){
       // check if VM exists and is running
-      VM_EXISTS = sh( -n "$(docker-machine ls -q | grep '^parcel-test$')")
-      VM_RUNNING = sh(-n "$(docker-machine status parcel-test | grep '^Running$')")
+      VM_EXISTS = sh( -n "${docker-machine ls -q | grep '^parcel-test$'}")
+      VM_RUNNING = sh(-n "${docker-machine status parcel-test | grep '^Running$'}")
       //Remove VM if it exists
       if(VM_EXISTS){
         if(VM_RUNNING){
