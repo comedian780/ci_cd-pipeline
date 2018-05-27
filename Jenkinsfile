@@ -39,7 +39,7 @@ node {
       }
 
    }
-   stage('Deploy to docker registry'){
+   stage('Deploy to registry'){
     if (isUnix()){
       sh 'docker push 193.174.205.28:443/parcel-api'
     }else{
