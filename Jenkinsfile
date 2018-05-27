@@ -49,7 +49,7 @@ node {
    }
    stage('Deploy to test server'){
       // check if VM exists and is running
-      VM_EXISTS = sh "-n ${docker-machine ls -q | grep '^parcel-test$'}
+      VM_EXISTS = sh "-n ${docker-machine ls -q | grep '^parcel-test$'}"
       VM_RUNNING = sh "-n ${docker-machine status parcel-test | grep '^Running$'}"
       //Remove VM if it exists
       if(VM_EXISTS){
