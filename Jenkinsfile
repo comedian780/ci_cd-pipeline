@@ -23,20 +23,12 @@ node {
           sh 'docker build -t "193.174.205.28:443/parcel-api" .'
           sh 'docker images purge -y'
 
-          // start docker container
-          //sh 'docker stop parcel-webservice'
-          //sh 'docker rm parcel-webservice'
-          // sh 'docker run -d --restart always --network host --name=parcel-webservice 193.174.205.28:443/parcel-api ./start.sh'
       } else {
           //build docker image
 
           bat 'docker rmi 193.174.205.28:443/parcel-api:latest'
           bat 'docker build -t 193.174.205.28:443/parcel-api .'
           bat 'docker images purge -y'
-          // start docker container
-          //bat 'docker stop parcel-webservice'
-          //bat 'docker rm parcel-webservice'
-          // bat 'docker run -d --restart always --network host --name=parcel-webservice 193.174.205.28:443/parcel-api ./start.sh'
       }
 
    }
@@ -46,7 +38,7 @@ node {
     }else{
       bat 'docker push "193.174.205.28:443/parcel-api"'
     }
-   }
+   }/*
    stage('Deploy to test server'){
       // check if VM exists and is running
       VM_EXISTS = sh "-n ${docker-machine ls -q | grep '^parcel-test$'}"
@@ -66,6 +58,6 @@ node {
       sh 'docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db 193.174.205.28:443/parcel-db'
       sh 'docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend 193.174.205.28:443/parcel-frontend'
       sh 'docker run -d --network=parcelnetwork --name=parcel-webservice -p 8443:8443 193.174.205.28:443/parcel-api ./start.sh'
-   }
+   }*/
 
 }
