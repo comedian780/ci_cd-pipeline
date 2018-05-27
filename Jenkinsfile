@@ -33,15 +33,15 @@ node {
 
    }
    stage('Deploy to registry'){
-    if (isUnix()){
+    if (isUnix()) {
       sh 'docker push "193.174.205.28:443/parcel-api"'
-    }else{
+    } else {
       bat 'docker push "193.174.205.28:443/parcel-api"'
     }
-   }/*
+   }
    stage('Deploy to test server'){
       // check if VM exists and is running
-      VM_EXISTS = sh "-n ${docker-machine ls -q | grep '^parcel-test$'}"
+      /*VM_EXISTS = sh "-n ${docker-machine ls -q | grep '^parcel-test$'}"
       VM_RUNNING = sh "-n ${docker-machine status parcel-test | grep '^Running$'}"
       //Remove VM if it exists
       if(VM_EXISTS){
@@ -49,7 +49,7 @@ node {
           sh 'docker-machine stop parcel-test'
         }
         sh 'docker-machine rm parcel-test -y'
-      }
+      }*/
       // create production VM
       sh 'docker-machine create --driver virtualbox --engine-insecure-registry 193.174.205.28:44 parcel-test'
       // switch to VM docker environment
@@ -58,6 +58,6 @@ node {
       sh 'docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db 193.174.205.28:443/parcel-db'
       sh 'docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend 193.174.205.28:443/parcel-frontend'
       sh 'docker run -d --network=parcelnetwork --name=parcel-webservice -p 8443:8443 193.174.205.28:443/parcel-api ./start.sh'
-   }*/
+   }
 
 }
