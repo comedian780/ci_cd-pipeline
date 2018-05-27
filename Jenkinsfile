@@ -24,7 +24,7 @@ node {
 
           bat 'docker rmi 193.174.205.28:443/parcel-api:latest'
           bat 'docker build -t 193.174.205.28:443/parcel-api .'
-          bat 'docker image prune -y'
+          bat 'docker image prune -f'
       }
 
    }
@@ -46,7 +46,7 @@ node {
             script: "'docker-machine' status parcel-test | grep '^Running\$'",
             returnStatus : true)
         if(VM_RUNNING!=""){
-          sh 'docker-machine stop parcel-test'
+          //sh 'docker-machine stop parcel-test'
         }
         sh 'docker-machine rm parcel-test -y'
       }
