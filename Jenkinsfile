@@ -15,7 +15,7 @@ node {
 
       if (isUnix()) {
           //build docker image
-          IMAGE_EXISTS = sh(-n "${docker images -q 193.174.205.28:443/parcel-api 2> /dev/null}")
+          IMAGE_EXISTS = sh(-n ${docker images -q 193.174.205.28:443/parcel-api 2> /dev/null})
           //Remove the previous build image
           if(IMAGE_EXISTS){
             sh 'docker rmi 193.174.205.28:443/parcel-api'
