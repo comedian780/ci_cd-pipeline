@@ -53,7 +53,7 @@ node {
       // create production VM
       sh 'docker-machine create --driver virtualbox --engine-insecure-registry 193.174.205.28:44 parcel-test'
       // switch to VM docker environment
-      sh "eval $(docker-machine env parcel-test)"
+      sh "eval ${docker-machine env parcel-test}"
       sh 'docker network create --driver bridge parcelnetwork'
       sh 'docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db 193.174.205.28:443/parcel-db'
       sh 'docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend 193.174.205.28:443/parcel-frontend'
