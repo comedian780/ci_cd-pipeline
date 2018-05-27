@@ -14,7 +14,7 @@ node {
             returnStatus : true)
           /* Remove the previous build image */
           if(IMAGE_EXISTS!=""){
-            sh 'docker rmi "193.174.205.28:443/parcel-api"'
+            sh 'docker rmi -f "193.174.205.28:443/parcel-api"'
           }
           sh 'docker build -t "193.174.205.28:443/parcel-api" .'
           sh 'docker image prune -f'
@@ -22,7 +22,7 @@ node {
       } else {
           /* build docker image */
 
-          bat 'docker rmi 193.174.205.28:443/parcel-api:latest'
+          bat 'docker rmi -f 193.174.205.28:443/parcel-api:latest'
           bat 'docker build -t 193.174.205.28:443/parcel-api .'
           bat 'docker image prune -f'
       }
