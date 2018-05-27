@@ -21,14 +21,14 @@ node {
             sh 'docker rmi "193.174.205.28:443/parcel-api"'
           }
           sh 'docker build -t "193.174.205.28:443/parcel-api" .'
-          sh 'docker images purge -y'
+          sh 'docker image prune -y'
 
       } else {
           //build docker image
 
           bat 'docker rmi 193.174.205.28:443/parcel-api:latest'
           bat 'docker build -t 193.174.205.28:443/parcel-api .'
-          bat 'docker images purge -y'
+          bat 'docker image prune -y'
       }
 
    }
