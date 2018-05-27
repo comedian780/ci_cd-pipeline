@@ -15,12 +15,12 @@ node {
 
       if (isUnix()) {
           //build docker image
-          IMAGE_EXISTS = sh "-n ${docker images -q 193.174.205.28:443/parcel-api 2> /dev/null}""
+          IMAGE_EXISTS = sh "-n ${docker images -q parcel-api 2> /dev/null}""
           //Remove the previous build image
           if(IMAGE_EXISTS){
-            sh 'docker rmi 193.174.205.28:443/parcel-api'
+            sh 'docker rmi "193.174.205.28:443/parcel-api"'
           }
-          sh 'docker build -t 193.174.205.28:443/parcel-api .'
+          sh 'docker build -t "193.174.205.28:443/parcel-api" .'
           sh 'docker images purge -y'
 
           // start docker container
@@ -42,9 +42,9 @@ node {
    }
    stage('Deploy to registry'){
     if (isUnix()){
-      sh 'docker push 193.174.205.28:443/parcel-api'
+      sh 'docker push "193.174.205.28:443/parcel-api"'
     }else{
-      bat 'docker push 193.174.205.28:443/parcel-api'
+      bat 'docker push "193.174.205.28:443/parcel-api"'
     }
    }
    stage('Deploy to test server'){
@@ -59,12 +59,12 @@ node {
         sh 'docker-machine rm parcel-test -y'
       }
       // create production VM
-      sh 'docker-machine create --driver virtualbox --engine-insecure-registry 193.174.205.28:443 parcel-test'
+      sh 'docker-machine create --driver virtualbox --engine-insecure-registry 193.174.205.28:44 parcel-test'
       // switch to VM docker environment
-      sh 'eval $(docker-machine env parcel-test)'
+      sh "eval $(docker-machine env parcel-test)"
       sh 'docker network create --driver bridge parcelnetwork'
-      sh 'docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db 193.174.205.28:443/ci-cd-db'
-      sh 'docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend 193.174.205.28:443/ci-cd-frontend'
+      sh 'docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db 193.174.205.28:443/parcel-db'
+      sh 'docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend 193.174.205.28:443/parcel-frontend'
       sh 'docker run -d --network=parcelnetwork --name=parcel-webservice -p 8443:8443 193.174.205.28:443/parcel-api ./start.sh'
    }
 
