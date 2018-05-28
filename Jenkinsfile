@@ -55,7 +55,7 @@ node {
    }
 
    stage('Integration'){
-    if(IsUnix()){
+    if(isUnix()){
       sh "python integration.py"    
     }
   }
