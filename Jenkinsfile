@@ -56,7 +56,8 @@ node {
 
    stage('Integration'){
     if(isUnix()){
-      sh "python integration.py"    
+      sh "docker-machine ls"
+      sh "python integration.py"
     }
   }
 }
