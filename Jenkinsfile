@@ -54,4 +54,9 @@ node {
       sh './initializeTestServer.sh'
    }
 
+   stage('Integration'){
+    if(IsUnix()){
+      sh "python integration.py"    
+    }
+  }
 }
