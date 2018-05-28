@@ -59,6 +59,7 @@ node {
     if(isUnix()){
       sh "docker-machine start parcel-test"
       sh "python integration.py"
+      sh "docker-machine stop parcel-test"
     }
   }
 }
