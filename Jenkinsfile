@@ -52,11 +52,12 @@ node {
       }
       // create production VM
       sh './initializeTestServer.sh'
+      sh "docker-machine stop parcel-test"
    }
 
    stage('Integration'){
     if(isUnix()){
-      sh "docker-machine ls"
+      sh "docker-machine start parcel-test"
       sh "python integration.py"
     }
   }
