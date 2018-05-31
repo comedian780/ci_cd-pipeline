@@ -54,7 +54,6 @@ node {
       sh './initializeTestServer.sh'
       sh "docker-machine stop parcel-test"
    }
-
    stage('Integration'){
     if(isUnix()){
       sh "docker-machine start parcel-test"
@@ -62,4 +61,11 @@ node {
       sh "docker-machine stop parcel-test"
     }
   }
+  stage('UAT'){
+   if(isUnix()){
+     sh "docker-machine start parcel-test"
+     sh "python uat.py"
+     sh "docker-machine stop parcel-test"
+   }
+ }
 }
