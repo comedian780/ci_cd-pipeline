@@ -1,4 +1,3 @@
-import ast
 import requests
 import subprocess
 
