@@ -4,9 +4,9 @@ vm_name="parcel-loadbalancer"
 test_server1_name="parcel-test1"
 test_server2_name="parcel-test2"
 echo "Starting Test VM 1"
-sh initializeVM.sh test_name_server1
+sh initializeVM.sh test_server1_name
 echo "Starting Test VM 2"
-sh initializeVM.sh test_name_server2
+sh initializeVM.sh test_server2_name
 echo "Checking if Loadbalancer exists"
 if(docker-machine ls -q | grep "^$vm_name\$"); then
   if(docker-machine status $vm_name | grep "^Running\$"); then
@@ -28,7 +28,7 @@ echo "Setting IPs for backend servers"
 changeIpScript=$(cat changeProxyIp.sh)
 test_server1_url=$(docker-machine url $test_server1_name | grep -oP "tcp://\K[^:]+")
 test_server2_url=$(docker-machine url $test_server2_name | grep -oP "tcp://\K[^:]+")
-echo "vm_name=$test_name_server1 &&\ vm_url=$test_server1_url &&\ $changeIpScript" | docker-machine ssh $vm_name
-echo "vm_name=$test_name_server2 &&\ vm_url=$test_server2_url &&\ $changeIpScript" | docker-machine ssh $vm_name
+echo "vm_name=$test_server1_name &&\ vm_url=$test_server1_url &&\ $changeIpScript" | docker-machine ssh $vm_name
+echo "vm_name=$test_server2_name &&\ vm_url=$test_server2_url &&\ $changeIpScript" | docker-machine ssh $vm_name
 echo "Loadbalancer's URL"
 echo $(docker-machine url $vm_name | grep -oP "tcp://\K[^:]+")
