@@ -31,8 +31,9 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("cfg-size-depth").clear()
         driver.find_element_by_id("cfg-size-depth").send_keys("3")
         driver.find_element_by_id("cfg-size-btn").click()
-        time.sleep(5)
+        time.sleep(10)
         result = driver.find_element_by_id("cfg-category").text.split()[1]
+        print str(result)
         if(result != self.correct_result):
             exit(1)
 
