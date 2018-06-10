@@ -38,7 +38,9 @@ node {
    stage('Deploy to test server'){
       // create production VM
       sh './initializeTestEnvironment.sh'
-      sh "docker-machine stop parcel-test"
+      sh "docker-machine stop parcel-test1"
+      sh "docker-machine stop parcel-test2"
+      sh "docker-machine stop parcel-loadbalancer"
    }
    stage('Integration'){
     if(isUnix()){
