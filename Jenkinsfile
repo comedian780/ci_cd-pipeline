@@ -36,36 +36,24 @@ node {
     }
    }
    stage('Deploy to test server'){
-      // check if VM exists and is running
-      VM_EXISTS = sh(
-          script: "'docker-machine' ls -q | grep '^parcel-test\$'",
-            returnStatus : true)
-      //Remove VM if it exists
-      if(VM_EXISTS!=""){
-          VM_RUNNING = sh(
-            script: "'docker-machine' status parcel-test | grep '^Running\$'",
-            returnStatus : true)
-        if(VM_RUNNING!=""){
-          //sh 'docker-machine stop parcel-test'
-        }
-        sh 'docker-machine rm parcel-test -y'
-      }
       // create production VM
-      sh './initializeTestServer.sh'
+      sh './initializeTestEnvironment.sh'
       sh "docker-machine stop parcel-test"
    }
    stage('Integration'){
     if(isUnix()){
-      sh "docker-machine start parcel-test"
+      sh "docker-machine start parcel-test1"
+      sh "updateProxyIp.sh"
       sh "python integration.py"
-      sh "docker-machine stop parcel-test"
+      sh "docker-machine stop parcel-test1"
     }
   }
   stage('UAT'){
    if(isUnix()){
-     sh "docker-machine start parcel-test"
+     sh "docker-machine start parcel-test2"
+     sh "updateProxyIp.sh"
      sh "python uat.py"
-     sh "docker-machine stop parcel-test"
+     sh "docker-machine stop parcel-test2"
    }
  }
 }
