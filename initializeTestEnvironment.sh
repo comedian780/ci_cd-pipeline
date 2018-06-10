@@ -4,9 +4,9 @@ vm_name="parcel-loadbalancer"
 test_server1_name="parcel-test1"
 test_server2_name="parcel-test2"
 echo "Starting Test VM 1"
-sh initializeVM.sh test_server1_name
+sh initializeVM.sh $test_server1_name
 echo "Starting Test VM 2"
-sh initializeVM.sh test_server2_name
+sh initializeVM.sh $test_server2_name
 echo "Checking if Loadbalancer exists"
 if(docker-machine ls -q | grep "^$vm_name\$"); then
   if(docker-machine status $vm_name | grep "^Running\$"); then
