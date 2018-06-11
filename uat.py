@@ -17,7 +17,7 @@ class UntitledTestCase(unittest.TestCase):
         self.base_url = "https://www.katalon.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
-        self.vm_url = "http://" + str(subprocess.check_output(["docker-machine","url", "parcel-test2"])).split(':')[1].split('/')[2]
+        self.vm_url = "http://" + str(subprocess.check_output(["docker-machine","url", "parcel-test1"])).split(':')[1].split('/')[2]
         self.correct_result = "XS"
 
     def test_untitled_test_case(self):
