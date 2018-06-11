@@ -33,7 +33,6 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("cfg-size-btn").click()
         time.sleep(10)
         result = driver.find_element_by_id("cfg-category").text.split()[1]
-        print str(result)
         if(result != self.correct_result):
             exit(1)
 
