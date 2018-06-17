@@ -50,10 +50,10 @@ node {
   }
   stage('UAT'){
    if(isUnix()){
-     sh "docker-machine start parcel-test2"
+     sh "docker-machine start parcel-test1"
      //sh "./updateProxyIp.sh"
      sh "python uat.py"
-     sh "docker-machine stop parcel-test2"
+     sh "docker-machine stop parcel-test1"
    }
  }
 }

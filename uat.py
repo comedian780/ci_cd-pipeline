@@ -17,7 +17,7 @@ class UntitledTestCase(unittest.TestCase):
         self.base_url = "https://www.katalon.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
-        self.vm_url = "http://" + str(subprocess.check_output(["docker-machine","url", "parcel-test2"])).split(':')[1].split('/')[2]
+        self.vm_url = "http://" + str(subprocess.check_output(["docker-machine","url", "parcel-test1"])).split(':')[1].split('/')[2]
         self.correct_result = "XS"
 
     def test_untitled_test_case(self):
@@ -33,7 +33,6 @@ class UntitledTestCase(unittest.TestCase):
         driver.find_element_by_id("cfg-size-btn").click()
         time.sleep(10)
         result = driver.find_element_by_id("cfg-category").text.split()[1]
-        print str(result)
         if(result != self.correct_result):
             exit(1)
 
