@@ -18,3 +18,5 @@ COPY --from=BUILD_IMAGE /APP/build/libs/. /APP
 COPY --from=BUILD_IMAGE /APP/start.sh /APP
 
 CMD ./start.sh
+
+EXPOSE 8443
