@@ -37,23 +37,23 @@ node {
    stage('Deploy to test server'){
       // create production VM
       sh './initializeTestEnvironment.sh'
-      sh "docker-machine stop parcel-test1"
-      sh "docker-machine stop parcel-test2"
+      //sh "docker-machine stop parcel-test1"
+      //sh "docker-machine stop parcel-test2"
       sh "docker-machine stop parcel-loadbalancer"
    }
    stage('Integration'){
     if(isUnix()){
-      sh "docker-machine start parcel-test1"
+      sh "docker-machine start parcel-loadbalancer"
       sh "python integration.py"
-      sh "docker-machine stop parcel-test1"
+      sh "docker-machine stop parcel-loadbalancer"
     }
   }
   stage('UAT'){
    if(isUnix()){
-     sh "docker-machine start parcel-test1"
+     sh "docker-machine start parcel-loadbalancer"
      //sh "./updateProxyIp.sh"
      sh "python uat.py"
-     sh "docker-machine stop parcel-test1"
+     sh "docker-machine stop parcel-loadbalancer"
    }
  }
 }
