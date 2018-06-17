@@ -1,6 +1,6 @@
 #!/bin/sh
 
-vm_name="parcel-loadbalancer"
+vm_name="parcel-test"
 #test_server1_name="parcel-test1"
 #test_server2_name="parcel-test2"
 #echo "Starting Test VM 1"

@@ -39,21 +39,21 @@ node {
       sh './initializeTestEnvironment.sh'
       //sh "docker-machine stop parcel-test1"
       //sh "docker-machine stop parcel-test2"
-      sh "docker-machine stop parcel-loadbalancer"
+      sh "docker-machine stop parcel-test"
    }
    stage('Integration'){
     if(isUnix()){
-      sh "docker-machine start parcel-loadbalancer"
+      sh "docker-machine start parcel-test"
       sh "python integration.py"
-      sh "docker-machine stop parcel-loadbalancer"
+      sh "docker-machine stop parcel-test"
     }
   }
   stage('UAT'){
    if(isUnix()){
-     sh "docker-machine start parcel-loadbalancer"
+     sh "docker-machine start parcel-test"
      //sh "./updateProxyIp.sh"
      sh "python uat.py"
-     sh "docker-machine stop parcel-loadbalancer"
+     sh "docker-machine stop parcel-test"
    }
  }
 }
