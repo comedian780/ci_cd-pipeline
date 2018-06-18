@@ -56,4 +56,20 @@ node {
      sh "docker-machine stop parcel-test"
    }
  }
+ stage('Capacity'){
+  if(isUnix()){
+    sh "docker-machine start parcel-test"
+    //sh "./updateProxyIp.sh"
+    sh "./capacity.sh"
+    sh "docker-machine stop parcel-test"
+  }
+ }
+ stage('Manual'){
+ if(isUnix()){
+   sh "docker-machine start parcel-test"
+   input 'Deploy to Production?'
+   sh "docker-machine stop parcel-test"
+  }
+ }
+
 }
