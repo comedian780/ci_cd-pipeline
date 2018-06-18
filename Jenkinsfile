@@ -61,6 +61,7 @@ node {
     sh "docker-machine start parcel-test"
     //sh "./updateProxyIp.sh"
     sh "./capacity.sh"
+    gatlingArchive()
     sh "docker-machine stop parcel-test"
   }
  }
