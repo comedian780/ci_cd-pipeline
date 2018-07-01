@@ -5,7 +5,7 @@ node {
 
    }
      stage('Build') { // for display purposes
-      
+
 
 
       if (isUnix()) {
@@ -39,6 +39,7 @@ node {
       sh "./scripts/startVM.sh parcel-asset-server"
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
+      sh "./scripts/deploySizeAsset.sh asset.allgaeu-parcel-service.com parcel-asset-server"
     } else {
       bat 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
     }
