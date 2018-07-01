@@ -35,6 +35,7 @@ node {
    }
    stage('Deploy to registry'){
     if (isUnix()) {
+      sh "./scripts/startVM.sh parcel-asset-server"
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
     } else {
@@ -43,24 +44,28 @@ node {
    }
    stage('Deploy to test server'){
       // create production VM
+      sh "./scripts/startVM.sh parcel-asset-server"
       sh './scripts/initializeVM.sh parcel-test'
 
    }
    stage('Integration'){
     if(isUnix()){
+      sh "./scripts/startVM.sh parcel-asset-server"
       sh "./scripts/startVM.sh parcel-test"
       sh "python ./scripts/integration.py"
     }
   }
   stage('UAT'){
    if(isUnix()){
-     sh "./scripts/startVM.sh parcel-test"
+      sh "./scripts/startVM.sh parcel-asset-server"
+      sh "./scripts/startVM.sh parcel-test"
      //sh "./updateProxyIp.sh"
      sh "python ./scripts/uat.py"
    }
  }
  stage('Capacity'){
   if(isUnix()){
+    sh "./scripts/startVM.sh parcel-asset-server"
     sh "./scripts/startVM.sh parcel-test"
     sh 'gradle gatlingRun'
     //sh "./scripts/capacity.sh"
@@ -68,11 +73,12 @@ node {
   }
  }
  stage('Manual'){
- if(isUnix()){
-   sh "./scripts/startVM.sh parcel-test"
-   input 'Deploy to Production?'
-   sh "docker-machine stop parcel-test"
-  }
+   if(isUnix()){
+     sh "./scripts/startVM.sh parcel-asset-server"
+     sh "./scripts/startVM.sh parcel-test"
+     input 'Deploy to Production?'
+     sh "docker-machine stop parcel-test"
+    }
  }/*
  stage('Deployment'){
    if(isUnix()){
