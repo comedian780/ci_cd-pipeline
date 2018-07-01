@@ -16,10 +16,11 @@ node {
           if(IMAGE_EXISTS!=""){
             sh 'docker rmi -f "asset.allgaeu-parcel-service.com:443/parcel-api"'
           }
+          //sh ./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-api" .'
-          sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:$BUILD_NUMBER'
+          //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api'
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-asset-size" -f ./js/Dockerfile ./js'
-          sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:$BUILD_NUMBER'
+          //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size'
           sh 'docker image prune -f'
 
       } else {
@@ -69,6 +70,16 @@ node {
    input 'Deploy to Production?'
    sh "docker-machine stop parcel-test"
   }
- }
+ }/*
+ stage('Deployment'){
+   if(isUnix()){
+     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:$BUILD_NUMBER'
+     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:$BUILD_NUMBER'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api:$BUILD_NUMBER"'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size:$BUILD_NUMBER"'
+   }
+ }*/
 
 }
