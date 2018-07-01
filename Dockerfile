@@ -6,7 +6,7 @@ MAINTAINER AaronLuellwitz <aaron.luellwitz@gmx.de>
 ADD --chown=gradle . /APP
 WORKDIR /APP
 
-RUN gradle clean build
+RUN gradle build
 
 # Stage for production use
 FROM openjdk:jre-alpine
