@@ -6,7 +6,7 @@ node {
    }
      stage('Build') { // for display purposes
       // run gradle build -> happens while docker builds
-      sh 'gradle clean build'
+
 
       if (isUnix()) {
           /* build docker image */
@@ -17,6 +17,7 @@ node {
           if(IMAGE_EXISTS!=""){
             sh 'docker rmi -f "asset.allgaeu-parcel-service.com:443/parcel-api"'
           }
+          sh 'gradle clean build'
           //sh ./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-api" .'
           //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api'
