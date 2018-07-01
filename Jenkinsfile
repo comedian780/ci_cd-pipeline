@@ -5,7 +5,7 @@ node {
 
    }
      stage('Build') { // for display purposes
-      // run gradle build -> happens while docker builds
+      
 
 
       if (isUnix()) {
@@ -18,8 +18,8 @@ node {
             sh 'docker rmi -f "asset.allgaeu-parcel-service.com:443/parcel-api"'
           }
           sh 'gradle clean build'
-          sh "./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server"
-          sh "./scripts/setStaticIP.sh parcel-asset-server 42"
+          sh "./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server 42"
+          //sh "./scripts/setStaticIP.sh parcel-asset-server 42"
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-api" .'
           //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api'
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-asset-size" -f ./js/Dockerfile ./js'

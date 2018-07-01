@@ -2,7 +2,7 @@
 
 asset_ip=$1
 vm_name=$2
-
+static_ip=$3
 
 
 if(docker-machine ls -q | grep "^$vm_name\$"); then
@@ -16,6 +16,8 @@ if(docker-machine ls -q | grep "^$vm_name\$"); then
 fi
 echo "Creating VM for $vm_name"
 docker-machine create --driver virtualbox --engine-insecure-registry asset.allgaeu-parcel-service.com:443 --engine-insecure-registry $asset_ip:443 $vm_name
+echo "Setting static IP"
+sh ./scripts/setStaticIP.sh $vm_name $static_ip
 eval $(docker-machine env ${vm_name})
 docker run -d -p 443:5000 --restart=always --name registry registry:2
 echo "Starting asset-CDN"
@@ -30,7 +32,6 @@ docker run -d --restart always --network=parcelassetnetwork --name=parcel-asset-
 docker run -d --restart always --network=parcelassetnetwork --name=parcel-asset-price "${asset_ip}:443/parcel-asset-price"
 #docker run -d --restart always --network=parcelassetnetwork --name=parcel-asset-size "${asset_ip}:443/parcel-asset-size"
 docker run -d --restart always --network=parcelassetnetwork -p 8444:80 --name=parcel-asset "${asset_ip}:443/parcel-asset"
-docker ps
 echo "Migrating images to $vm_name"
 docker pull $asset_ip:443/parcel-db
 docker tag $asset_ip:443/parcel-db asset.allgaeu-parcel-service.com:443/parcel-db
@@ -44,5 +45,5 @@ docker push asset.allgaeu-parcel-service.com:443/parcel-proxy
 #docker pull $asset_ip:443/parcel-api
 #docker tag $asset_ip:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api
 #docker push asset.allgaeu-parcel-service.com:443/parcel-api
-curl -X GET asset.allgaeu-parcel-service.com:443/v2/_catalog
 eval $(docker-machine env -u)
+curl -X GET asset.allgaeu-parcel-service.com:443/v2/_catalog
