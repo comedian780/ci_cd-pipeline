@@ -6,6 +6,7 @@ node {
    }
      stage('Build') { // for display purposes
       // run gradle build -> happens while docker builds
+      sh 'gradle clean build'
 
       if (isUnix()) {
           /* build docker image */
@@ -60,7 +61,8 @@ node {
  stage('Capacity'){
   if(isUnix()){
     sh "./scripts/startVM.sh parcel-test"
-    sh "./scripts/capacity.sh"
+    sh 'gradle gatlingRun'
+    //sh "./scripts/capacity.sh"
     gatlingArchive()
   }
  }
