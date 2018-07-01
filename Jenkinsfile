@@ -19,6 +19,7 @@ node {
           }
           sh 'gradle clean build'
           sh "./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server"
+          sh "./scripts/setStaticIP.sh parcel-asset-server 42"
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-api" .'
           //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api'
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-asset-size" -f ./js/Dockerfile ./js'
@@ -46,7 +47,7 @@ node {
       // create production VM
       sh "./scripts/startVM.sh parcel-asset-server"
       sh './scripts/initializeVM.sh parcel-test'
-
+      sh "./scripts/setStaticIP.sh parcel-test 50"
    }
    stage('Integration'){
     if(isUnix()){
@@ -78,6 +79,7 @@ node {
      sh "./scripts/startVM.sh parcel-test"
      input 'Deploy to Production?'
      sh "docker-machine stop parcel-test"
+     sh "docker-machine stop parcel-asset-server"
     }
  }/*
  stage('Deployment'){
