@@ -18,7 +18,7 @@ node {
             sh 'docker rmi -f "asset.allgaeu-parcel-service.com:443/parcel-api"'
           }
           sh 'gradle clean build'
-          //sh ./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server
+          sh ./scripts/buildTestAssetServer.sh 193.174.205.28 parcel-asset-server
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-api" .'
           //sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api'
           sh 'docker build -t "asset.allgaeu-parcel-service.com:443/parcel-asset-size" -f ./js/Dockerfile ./js'
@@ -76,12 +76,12 @@ node {
  }/*
  stage('Deployment'){
    if(isUnix()){
-     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:$BUILD_NUMBER'
-     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:$BUILD_NUMBER'
+     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
+     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER'
      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api:$BUILD_NUMBER"'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size:$BUILD_NUMBER"'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER"'
+     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER"'
    }
  }*/
 
