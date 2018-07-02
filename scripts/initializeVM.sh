@@ -1,5 +1,5 @@
 #!/bin/sh
- 
+
 vm_name=$1
 if(docker-machine ls -q | grep "^$vm_name\$"); then
   if(docker-machine status $vm_name | grep "^Running\$"); then
@@ -8,7 +8,7 @@ if(docker-machine ls -q | grep "^$vm_name\$"); then
   docker-machine rm $vm_name -y
 fi
 echo "Creating VM for $vm_name"
-docker-machine create --driver virtualbox --engine-insecure-registry asset.allgaeu-parcel-service.com:443 $vm_name
+docker-machine create --driver virtualbox --engine-insecure-registry asset.allgaeu-parcel-service.com:443 --engine-insecure-registry 193.174.205.28:443 $vm_name
 echo "Changing settings to VM's docker"
 eval $(docker-machine env ${vm_name})
 echo "Creating network for containers"

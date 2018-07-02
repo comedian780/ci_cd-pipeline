@@ -82,16 +82,19 @@ node {
      sh "docker-machine stop parcel-test"
      sh "docker-machine stop parcel-asset-server"
     }
- }/*
+ }
  stage('Deployment'){
-   if(isUnix()){
-     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
-     sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER"'
-     sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER"'
+   if(isUnix
+      sh "./scripts/startVM.sh parcel-production"
+      sh "./setStaticIP parcel-production 150" 
+      sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
+      sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER'
+      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
+      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size"'
+      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER"'
+      sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER"'
+      sh "./scripts/deployToProduction.sh asset.allgaeu-parcel-service.com parcel-production $BUILD_NUMBER"
    }
- }*/
+ }
 
 }
