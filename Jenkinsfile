@@ -77,8 +77,8 @@ node {
  stage('Manual'){
    if(isUnix()){
      input 'Deploy to Production?'
-     sh "./scripst/stopVM.sh parcel-test"
-     sh "./scripst/stopVM.sh parcel-asset-server"
+     sh "./scripts/stopVM.sh parcel-test"
+     sh "./scripts/stopVM.sh parcel-asset-server"
     }
  }
  stage('Deployment'){
