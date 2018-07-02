@@ -1,5 +1,4 @@
 #!/bin/sh
 
-
-ip=192.168.99.100
-cat $1 ; echo $ip ; echo send | nsupdate -v
+mode=$1
+cat ~/dnsconfig/$mode > /etc/bind/parcel/db.allgaeu-parcel-service.com

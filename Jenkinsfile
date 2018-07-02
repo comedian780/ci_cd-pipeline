@@ -75,7 +75,7 @@ node {
  }
  stage('Manual'){
    if(isUnix()){
-     sh "cat ~/dnsconfig/production > /etc/bind/parcel/db.allgaeu-parcel-service.com "
+     sh "./scripts/updateDNS.sh production"
      input 'Deploy to Production?'
      sh "docker-machine stop parcel-test"
      sh "docker-machine stop parcel-asset-server"
@@ -84,7 +84,7 @@ node {
  stage('Deployment'){
    if(isUnix()){
       sh "./scripts/startVM.sh parcel-production"
-      sh "./setStaticIP parcel-production 150"
+      sh "./scripts/setStaticIP parcel-production 150"
       sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
       sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER'
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
