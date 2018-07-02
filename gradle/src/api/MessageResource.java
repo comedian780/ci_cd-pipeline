@@ -36,7 +36,7 @@ public class MessageResource
 
   public double getGurtSize(Parcel parcel) {
 	  int fakt_len = 2;
-	  int fakt_hei = 3;
+	  int fakt_hei = 2;
 	  int fakt_wid = 2;
 
 	  parcel.length = Math.abs(parcel.length);
