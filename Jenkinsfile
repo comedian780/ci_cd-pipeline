@@ -2,7 +2,6 @@ node {
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/comedian780/ci_cd-pipeline.git'
-
    }
      stage('Build') { // for display purposes
 
@@ -76,15 +75,14 @@ node {
  }
  stage('Manual'){
    if(isUnix()){
-     sh "./scripts/startVM.sh parcel-asset-server"
-     sh "./scripts/startVM.sh parcel-test"
+     sh "cat ~/dnsconfig/production > /etc/bind/parcel/db.allgaeu-parcel-service.com "
      input 'Deploy to Production?'
      sh "docker-machine stop parcel-test"
      sh "docker-machine stop parcel-asset-server"
     }
  }
  stage('Deployment'){
-   if(isUnix){
+   if(isUnix()){
       sh "./scripts/startVM.sh parcel-production"
       sh "./setStaticIP parcel-production 150"
       sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
