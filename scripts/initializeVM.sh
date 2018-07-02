@@ -14,7 +14,7 @@ eval $(docker-machine env ${vm_name})
 echo "Creating network for containers"
 docker network create --driver bridge parcelnetwork
 echo "Starting containers"
-docker run -d --restart always --network=parcelnetwork -p 3306:3306 --name=parcel-db asset.allgaeu-parcel-service.com:443/parcel-db
+docker run -d --restart always --network=parcelnetwork --name=parcel-db asset.allgaeu-parcel-service.com:443/parcel-db
 docker run -d --restart always --network=parcelnetwork -p 80:80 --name=parcel-frontend asset.allgaeu-parcel-service.com:443/parcel-frontend
 docker run -d --restart always --network=parcelnetwork --name=parcel-webservice1 asset.allgaeu-parcel-service.com:443/parcel-api
 docker run -d --restart always --network=parcelnetwork --name=parcel-webservice2 asset.allgaeu-parcel-service.com:443/parcel-api
