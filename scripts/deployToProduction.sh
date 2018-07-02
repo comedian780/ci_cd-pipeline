@@ -12,8 +12,7 @@ else
   echo "echo green > state" | docker-machine ssh $vm_name
 fi
 
-docker stop parcel-proxy
-docker rm -f parcel-proxy
+
 eval $(docker-machine env ${vm_name})
 if (docker ps | grep parcel-webservice-${deployment_color}-1); then
   docker stop parcel-webservice-${deployment_color}-1
@@ -29,5 +28,7 @@ if (docker container ls -a | grep parcel-webservice-${deployment_color}-2); then
 fi
 docker run -d --restart always --network=parcelnetwork --name=parcel-webservice-${deployment_color}-1 ${asset_server}:443/parcel-api:0.$version
 docker run -d --restart always --network=parcelnetwork --name=parcel-webservice-${deployment_color}-2 ${asset_server}:443/parcel-api:0.$version
+docker stop parcel-proxy
+docker rm -f parcel-proxy
 docker run -d --restart always --network=parcelnetwork -p 8443:8443 -e STATE=$deployment_color --name=parcel-proxy ${asset_server}:443/parcel-proxy
 eval $(docker-machine env -u)
