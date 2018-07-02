@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 @Produces( MediaType.APPLICATION_JSON  )
 public class MessageResource
 {
-  @GET 
+  @GET
   public Response message()
   {
 	Parcel parcel = new Parcel();
@@ -33,37 +33,37 @@ public class MessageResource
 		       .header("Access-Control-Allow-Methods",
 		         "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
   }
-  
+
   public double getGurtSize(Parcel parcel) {
 	  int fakt_len = 2;
-	  int fakt_hei = 2;
+	  int fakt_hei = 3;
 	  int fakt_wid = 2;
-	  
+
 	  parcel.length = Math.abs(parcel.length);
 	  parcel.height = Math.abs(parcel.height);
 	  parcel.width = Math.abs(parcel.width);
-	  
+
 	  if(parcel.length > parcel.height && parcel.length > parcel.width) {
-		  fakt_len = 1; 
+		  fakt_len = 1;
 	  }else if(parcel.height > parcel.length && parcel.height > parcel.width){
 		  fakt_hei = 1;
 	  }else {
 		  fakt_wid = 1;
 	  }
-	  
+
 	  return fakt_len * parcel.length + fakt_hei * parcel.height + fakt_wid * parcel.width;
   }
-  
+
   @POST
   public Response size(String json) {
 	  Gson gs = new Gson();
 	  Parcel parcel = gs.fromJson(json, Parcel.class);
-	  
-	  
+
+
 	  double gurt = this.getGurtSize(parcel);
 	  MysqlCon con = new MysqlCon();
 	  parcel.size = con.getSize(gurt);
-	  
+
 	  //return gs.toJson(parcel, Package.class);
 	  return Response.ok(gs.toJson(parcel, Parcel.class)).header("Access-Control-Allow-Origin", "*")
       .header("Access-Control-Allow-Credentials", "true")
@@ -72,7 +72,7 @@ public class MessageResource
        .header("Access-Control-Allow-Methods",
          "GET, POST, PUT, DELETE, OPTIONS, HEAD").build();
   }
-  
+
   @OPTIONS
   public Response getOptions() {
     return Response.ok()
