@@ -84,9 +84,9 @@ node {
     }
  }
  stage('Deployment'){
-   if(isUnix
+   if(isUnix){
       sh "./scripts/startVM.sh parcel-production"
-      sh "./setStaticIP parcel-production 150" 
+      sh "./setStaticIP parcel-production 150"
       sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-api asset.allgaeu-parcel-service.com:443/parcel-api:0.$BUILD_NUMBER'
       sh 'docker tag asset.allgaeu-parcel-service.com:443/parcel-asset-size asset.allgaeu-parcel-service.com:443/parcel-asset-size:0.$BUILD_NUMBER'
       sh 'docker push "asset.allgaeu-parcel-service.com:443/parcel-api"'
